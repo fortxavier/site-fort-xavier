@@ -16,10 +16,10 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-criar .env.local ao rodar com as chaves para acesso ao banco de dados e imagens:
+criar .env.local ao rodar com as chaves para acesso ao banco de dados e imagens existentes:
 NEXT_PUBLIC_SUPABASE_URL=https://hqbuctqeomaexlfvztkc.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_qTERkgJ9z7W1WN9GICBpvw_uMFb20wJ
-SUPABASE_SERVICE_ROLE_KEY=sb_secret_yDdV1XjXrDxS3DWWd8V2ig_pj9295ap
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxYnVjdHFlb21hZXhsZnZ6dGtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAzODgzNDMsImV4cCI6MjA3NTk2NDM0M30.r6gP-grTGI8-ixI4cZKIMknx30OHM0cO2xfApDD9qsg
+
 
 ## Deploy on Vercel
 
