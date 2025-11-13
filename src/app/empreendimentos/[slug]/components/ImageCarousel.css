@@ -1,0 +1,624 @@
+/* Estilos para o Carrossel de Imagens com Zoom */
+
+.image-carousel-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap; 
+}
+
+.gallery-title {
+  font-size: 35px;
+  font-weight: 600;
+  color: #0066b3; 
+  margin: 0;
+}
+
+/* Category Buttons */
+.carousel-categories {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-radius: 30px;
+  justify-content: end;
+  gap: 0;
+  padding: .5rem;
+  display: flex;
+  overflow-x: auto;
+  width: 65%;
+}
+
+.carousel-categories::-webkit-scrollbar {
+  display: none;
+}
+
+.category-btn {
+  padding: 10px 30px;
+  border: none;
+  background: transparent;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: 120px;
+  font-size: 1rem;
+}
+
+.category-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.category-btn.active {
+  background-color: #0066b3;
+  color: white;
+  /* box-shadow: 0 4px 12px rgba(0, 102, 179, 0.3); */
+}
+
+.category-btn:hover:not(.active):not(:disabled) {
+  background-color: rgba(0, 102, 179, 0.1);
+  color: #0066b3;
+}
+
+/* Main Carousel */
+.carousel-main {
+  position: relative;
+}
+
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.carousel-image-wrapper {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 1rem;
+}
+
+.carousel-image-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: zoom-in;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-image-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.carousel-image-container:hover .carousel-image {
+  transform: scale(1.05);
+}
+
+/* Zoom Overlay */
+.zoom-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-image-container:hover .zoom-overlay {
+  opacity: 1;
+}
+
+.zoom-icon {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  padding: 1rem;
+  color: #0066b3;
+  backdrop-filter: blur(10px);
+}
+
+/* Navigation Buttons */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  color: #0066b3;
+  backdrop-filter: blur(10px);
+}
+
+.carousel-nav-btn:hover {
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav-btn.prev {
+  left: -25px;
+}
+
+.carousel-nav-btn.next {
+  right: -25px;
+}
+
+/* Indicators */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background-color: #0066b3;
+  transform: scale(1.2);
+}
+
+.indicator:hover {
+  background-color: #0066b3;
+  opacity: 0.7;
+}
+
+/* Image Counter */
+.image-counter {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* No Images State */
+.no-images {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+  background: #f9f9f9;
+  border-radius: 15px;
+}
+
+/* Zoom Modal */
+.zoom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.zoom-modal-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Zoom Close Button */
+.zoom-close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+  z-index: 1001;
+  backdrop-filter: blur(10px);
+}
+
+.zoom-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Zoom Navigation */
+.zoom-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+  z-index: 1001;
+  backdrop-filter: blur(10px);
+}
+
+.zoom-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.zoom-nav-btn.prev {
+  left: 2rem;
+}
+
+.zoom-nav-btn.next {
+  right: 2rem;
+}
+
+/* Zoomed Image */
+.zoom-image-container {
+  max-width: 90%;
+  max-height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zoom-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Zoom Info */
+.zoom-info {
+  position: absolute;
+  bottom: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.zoom-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.zoom-category {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+
+.zoom-counter {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Zoom Indicators */
+.zoom-indicators {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.zoom-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.zoom-indicator.active {
+  background: white;
+  border-color: white;
+  transform: scale(1.2);
+}
+
+.zoom-indicator:hover {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Loading state */
+.carousel-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  min-height: 300px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.carousel-loading p {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Initializing state */
+.carousel-initializing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 200px;
+}
+
+.carousel-initializing p {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Disabled button states */
+.carousel-nav-btn:disabled,
+.zoom-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Melhorias para acessibilidade */
+.carousel-image {
+  transition: opacity 0.3s ease;
+}
+
+.carousel-image[src=""],
+.carousel-image:not([src]) {
+  opacity: 0;
+}
+
+/* Estados de erro para imagens */
+.carousel-image-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  min-height: 200px;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .image-carousel-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .carousel-categories {
+    justify-content: center;
+    padding: 0.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .category-btn {
+    padding: 0.75rem 1.5rem;
+    min-width: 100px;
+    font-size: 0.9rem;
+  }
+
+  .carousel-header{
+    justify-content: center;
+  }
+  .carousel-image-wrapper {
+    margin: 0 0.5rem;
+  }
+
+  .carousel-image-container {
+    height: 300px;
+  }
+
+  .carousel-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-nav-btn.prev {
+    left: -20px;
+  }
+
+  .carousel-nav-btn.next {
+    right: -20px;
+  }
+
+  /* Zoom Modal Mobile */
+  .zoom-modal-content {
+    padding: 1rem;
+  }
+
+  .zoom-close-btn {
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .zoom-nav-btn {
+    width: 50px;
+    height: 50px;
+  }
+
+  .zoom-nav-btn.prev {
+    left: 1rem;
+  }
+
+  .zoom-nav-btn.next {
+    right: 1rem;
+  }
+
+  .zoom-image-container {
+    max-width: 95%;
+    max-height: 70%;
+  }
+
+  .zoom-info {
+    bottom: 4rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .zoom-title {
+    font-size: 1rem;
+  }
+
+  .zoom-category {
+    font-size: 0.9rem;
+  }
+
+  .zoom-counter {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-categories {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .category-btn {
+    padding: 0.6rem 1.2rem;
+    min-width: 90px;
+    font-size: 0.85rem;
+  }
+
+  .carousel-image-container {
+    height: 250px;
+  }
+
+  .carousel-nav-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+  .carousel-nav-btn.prev {
+    left: -17px;
+  }
+
+  .carousel-nav-btn.next {
+    right: -17px;
+  }
+
+  .carousel-loading {
+    padding: 40px 15px;
+    min-height: 250px;
+  }
+  
+  .carousel-initializing {
+    padding: 30px 15px;
+    min-height: 150px;
+  }
+  
+  .loading-spinner {
+    width: 32px;
+    height: 32px;
+    border-width: 3px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-image,
+  .carousel-image-container,
+  .carousel-nav-btn,
+  .zoom-overlay,
+  .indicator,
+  .zoom-modal {
+    transition: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.category-btn:focus,
+.carousel-nav-btn:focus,
+.indicator:focus,
+.zoom-close-btn:focus,
+.zoom-nav-btn:focus,
+.zoom-indicator:focus {
+  outline: 2px solid #0066b3;
+  outline-offset: 2px;
+}
+
