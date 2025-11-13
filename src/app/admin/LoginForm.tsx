@@ -5,7 +5,7 @@ import { Eye, EyeOff, Lock, User } from 'lucide-react';
 import './global.css';
 
 interface LoginProps {
-  onLogin: (username: string, password: string) => boolean;
+  onLogin: (username: string, password: string) => Promise<boolean> | boolean;
 }
 
 export default function LoginForm({ onLogin }: LoginProps) {
@@ -19,17 +19,17 @@ export default function LoginForm({ onLogin }: LoginProps) {
     e.preventDefault();
     setError('');
     setIsLoading(true);
+    try {
+      // se quiser manter o "delay" de simulação, ok:
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Simular delay de autenticação
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    const success = onLogin(username, password);
-    
-    if (!success) {
-      setError('Usuário ou senha incorretos');
+      const success = await onLogin(username, password);
+      if (!success) setError('Usuário ou senha incorretos');
+    } catch (err) {
+      setError('Erro ao autenticar. Tente novamente.');
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
   };
 
   return (
@@ -39,7 +39,7 @@ export default function LoginForm({ onLogin }: LoginProps) {
           <div className="login-logo">
             <Lock className="h-12 w-12 text-blue-600" />
           </div>
-          <h1 className="login-title">Fort Xavier Imóveis</h1>
+          <h1 className="login-title">Revendo Ape</h1>
           <p className="login-subtitle">Área Administrativa</p>
         </div>
 
